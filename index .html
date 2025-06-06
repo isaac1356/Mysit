@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nighters Movie Subscription Page</title>
+<style>
+  :root {
+    --gold: #FFD700;
+    --dark-bg: #121212;
+    --dark-bg-secondary: #1e1e1e;
+    --accent-blue: #1e90ff;
+    --white: #fff;
+    --gray-light: #aaa;
+    --gray-dark: #444;
+  }
+  body {
+    background: linear-gradient(90deg, black, #b22222, #00008b);
+    color: var(--white);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px 15px 40px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1, h2 {
+    margin: 12px 0;
+  }
+  h1 {
+    font-size: 3.2rem;
+    letter-spacing: 0.12em;
+    font-weight: 900;
+    text-shadow: 0 0 6px var(--gold);
+  }
+  h2 {
+    font-size: 2rem;
+    margin-top: 3em;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.4em;
+  }
+  p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0.4em auto 1.4em;
+  }
+  /* Plans */
+  .plans {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 15px;
+    max-width: 900px;
+  }
+  .plan {
+    background: rgba(255 255 255 / 0.12);
+    border-radius: 14px;
+    width: 270px;
+    padding: 22px;
+    color: var(--white);
+    box-shadow: 0 0 12px rgba(255 215 0, 0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+  .plan:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 20px rgba(255 215 0, 1);
+  }
+  .plan h3 {
+    color: var(--gold);
+    font-size: 1.7rem;
+    margin-bottom: 12px;
+  }
+  .plan p {
+    margin: 8px 0;
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+  /* Form */
+  form.contact-form {
+    max-width: 420px;
+    margin: 30px auto 50px;
+    background: rgba(255 255 255 / 0.12);
+    padding: 18px 22px;
+    border-radius: 12px;
+    box-shadow: 0 0 14px rgba(255 215 0, 0.6);
+    text-align: left;
+  }
+  form.contact-form label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: 700;
+  }
+  form.contact-form input[type="email"],
+  form.contact-form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 7px;
+    border: none;
+    resize: vertical;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  form.contact-form button {
+    margin-top: 18px;
+    background-color: var(--gold);
+    border: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    cursor: pointer;
+    width: 100%;
+    color: var(--dark-bg);
+    transition: background-color 0.3s ease;
+  }
+  form.contact-form button:hover {
+    background-color: #ffb800;
+  }
+  /* Payment */
+  .payment {
+    max-width: 420px;
+    margin: 30px auto 50px;
+    background: rgba(255 255 255 / 0.14);
+    padding: 20px 26px;
+    border-radius: 14px;
+    box-shadow: 0 0 15px rgba(255 215 0, 0.7);
+  }
+  .payment p {
+    margin: 11px 0;
+    font-weight: 600;
+  }
+  .payment a {
+    color: var(--accent-blue);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .payment a:hover {
+    text-decoration: underline;
+  }
+  /* CTA Button */
+  .cta {
+    background-color: var(--gold);
+    color: var(--dark-bg);
+    font-size: 1.6rem;
+    border: none;
+    border-radius: 10px;
+    padding: 18px 42px;
+    cursor: pointer;
+    margin: 35px auto 65px;
+    display: block;
+    text-transform: uppercase;
+    font-weight: 900;
+    box-shadow: 0 0 22px var(--gold);
+    transition: background-color 0.3s ease;
+  }
+  .cta:hover {
+    background-color: darkorange;
+  }
+  /* Footer */
+  footer {
+    margin-top: auto;
+    padding: 26px 10px 30px;
+    background: rgba(255 255 255 / 0.12);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    color: var(--white);
+    box-shadow: 0 0 12px rgba(255 215 0, 0.6);
+  }
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: 700;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+  /* Featured Movies Carousel */
+  .featured-movies {
+    max-width: 900px;
+    margin: 40px auto 40px;
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 12px;
+    padding: 20px 20px 30px;
+    box-shadow: 0 0 16px rgba(255 215 0, 0.7);
+  }
+  .featured-movies h2 {
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .movie-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
+  }
+  .movie-carousel::-webkit-scrollbar {
+    height: 8px;
+  }
+  .movie-carousel::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
+  }
+  .movie-card-small {
+    min-width: 180px;
+    background: var(--dark-bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(255 215 0, 0.7);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .movie-card-small:hover {
+    transform: scale(1.1);
+  }
+  .movie-card-small img {
+    width: 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 260px;
+    object-fit: cover;
+  }
+  .movie-card-small .info {
+    padding: 12px 10px 14px;
+    color: var(--gold);
+    text-align: center;
+  }
+  .movie-card-small .title {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  /* Testimonials section */
+  .testimonials {
+    max-width: 850px;
+    margin: 50px auto 50px;
+    background: rgba(255 255 255 / 0.12);
+    padding: 22px 25px;
+    border-radius: 14px;
+    box-shadow: 0 0 18px rgba(255 215 0, 0.7);
+    text-align: center;
+  }
+  .testimonials h2 {
+    color: var(--gold);
+    margin-bottom: 25px;
+  }
+  .testimonial-cards {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scroll-padding-inline: 15px;
+  }
+  .testimonial-cards::-webkit-scrollbar {
+    height: 8px;
+  }
+  .testimonial-cards::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
+  }
+  .testimonial-card {
+    background: var(--dark-bg-secondary);
+    border-radius: 12px;
+    padding: 18px 20px;
+    flex-shrink: 0;
+    min-width: 300px;
+    box-shadow: 0 0 10px rgba(255 215 0, 0.6);
+  }
+  .testimonial-card p {
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  .testimonial-card .author {
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-align: right;
+    color: var(--gold);
+  }
+  /* FAQ Accordion */
+  .faq {
+    max-width: 720px;
+    margin: 60px auto 70px;
+    background: rgba(255 255 255 / 0.12);
+    padding: 20px 18px 28px;
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(255 215 0, 0.8);
+    text-align: left;
+    color: var(--white);
+  }
+  .faq h2 {
+    color: var(--gold);
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .accordion-item + .accordion-item {
+    margin-top: 12px;
+  }
+  .accordion-header {
+    background: var(--dark-bg-secondary);
+    padding: 14px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    position: relative;
+    user-select: none;
+  }
+  .accordion-header:hover {
+    background: var(--gold);
+    color: var(--dark-bg);
+  }
+  .accordion-header::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+  }
+  .accordion-header[aria-expanded="true"]::after {
+    content: '-';
+    transform: rotate(180deg);
+  }
+  .accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    background: var(--dark-bg);
+    padding: 0 18px;
+    border-radius: 0 0 8px 8px;
+    transition: max-height 0.35s ease;
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--gray-light);
+    margin-bottom: 10px;
+  }
+  .accordion-panel.expanded {
+    padding-top: 12px;
+    max-height: 200px;
+  }
+  /* Promotions */
+  .promotions {
+    max-width: 900px;
+    margin: 50px auto 70px;
+    background: rgba(255 255 255 / 0.14);
+    border-radius: 14px;
+    padding: 26px 30px;
+    box-shadow: 0 0 18px rgba(255 215 0, 0.55);
+  }
+  .promotions h2 {
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .promotion-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .promotion-item {
+    background: var(--dark-bg-secondary);
+    padding: 14px;
+    border-radius: 12px;
+    width: 280px;
+    box-shadow: 0 0 10px rgba(255 215 0, 0.6);
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-align: center;
+  }
+  /* Community */
+  .community {
+    max-width: 720px;
+    margin: 60px auto 80px;
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 14px;
+    padding: 28px 30px;
+    box-shadow: 0 0 15px rgba(255 215 0, 0.6);
+    font-size: 1rem;
+    color: var(--white);
+  }
+  .community h2 {
+    color: var(--gold);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .community p {
+    max-width: 650px;
+    margin: 0 auto 10px;
+    line-height: 1.5;
+  }
+  /* Responsive */
+  @media (max-width: 680px) {
+    .plans {
+      flex-direction: column;
+      align-items: center;
+    }
+    .plan {
+      width: 90vw;
+    }
+    .movie-carousel {
+      justify-content: start;
+      padding-left: 6px;
+    }
+    .testimonial-cards {
+      flex-wrap: nowrap;
+    }
+    .promotion-items {
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>NIGHTERS MOVIE SUBSCRIPTION PAGE</h1>
+<p>🎉 Unlock Unlimited Movie Entertainment 🎬</p>
+<p>Join our premium groups and enjoy exclusive movie content!</p>
+
+<h2>Choose Your Plan</h2>
+<div class="plans" role="list">
+  <section class="plan" role="listitem" tabindex="0" aria-label="Starter Plan: 0 week for 4000 UGX, 1 month for 7000 UGX">
+    <h3>Starter Plan</h3>
+    <p>🔺 0. week: 4000 UGX</p>
+    <p>🔺 1. month: 7,000 UGX</p>
+  </section>
+  <section class="plan" role="listitem" tabindex="0" aria-label="Standard Plan: 2 months for 13000 UGX, 3 months for 21000 UGX">
+    <h3>Standard Plan</h3>
+    <p>🔸 2. months: 13,000 UGX</p>
+    <p>🔺 3. months: 21,000 UGX</p>
+  </section>
+  <section class="plan" role="listitem" tabindex="0" aria-label="Premium Plan: 4 months for 27000 UGX, 1 year for 78000 UGX">
+    <h3>Premium Plan</h3>
+    <p>🔺 4. months: 27,000 UGX</p>
+    <p>💠 1. year: 78,000 UGX</p>
+  </section>
+</div>
+
+<h2>Contact Us</h2>
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="post" class="contact-form" aria-label="Contact form for subscription inquiries">
+  <label for="email">Your Email</label>
+  <input name="Email" id="email" type="email" required placeholder="you@example.com" />
+  <label for="message">Your Message</label>
+  <textarea name="message" id="message" rows="4" placeholder="Write your message or attach a photo..." required></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="payment" aria-label="Payment options and instructions">
+  <h2>Payment Options</h2>
+  <p>🔴 ⭐ AIRTEL: Send to 0744624600 (BIZIMANA BONNY)</p>
+  <p>🟨 ✅ MTN: Send to 0775573901 (ZIPORA MUSIMENTA)</p>
+  <p>After confirming payment, please send proof (screenshot, sender's name, or transaction ID) to:</p>
+  <p><a href="http://wa.me/256744624600" target="_blank" rel="noopener" style="color: var(--accent-blue);">WhatsApp</a> or email: <a href="mailto:nightersmovies@gmail.com" style="color: var(--accent-blue);">nightersmovies@gmail.com</a></p>
+</div>
+
+<button class="cta" aria-label="Join Nighters groups now">Join Now Nighters groups</button>
+
+<!-- Featured Movies Carousel -->
+<section class="featured-movies" aria-label="Featured movies highlights">
+  <h2>Featured Movies</h2>
+  <div class="movie-carousel" tabindex="0" aria-live="polite" aria-label="Featured movies carousel">
+    <article class="movie-card-small" tabindex="0" aria-label="Movie Galactic Warriors">
+      <img src="https://m.media-amazon.com/images/I/81xmtc5E2wL._AC_SL1500_.jpg" alt="Galactic Warriors movie poster" />
+      <div class="info">
+        <div class="title">Galactic Warriors</div>
+        <div>Action & Sci-Fi</div>
+      </div>
+    </article>
+    <article class="movie-card-small" tabindex="0" aria-label="Movie Love in Paris">
+      <img src="https://m.media-amazon.com/images/I/91Tq8PsPteL._AC_SL1500_.jpg" alt="Love in Paris movie poster" />
+      <div class="info">
+        <div class="title">Love in Paris</div>
+        <div>Drama & Romance</div>
+      </div>
+    </article>
+    <article class="movie-card-small" tabindex="0" aria-label="Movie Laugh Out Loud">
+      <img src="https://m.media-amazon.com/images/I/91fZuD2+dQL._AC_SL1500_.jpg" alt="Laugh Out Loud movie poster" />
+      <div class="info">
+        <div class="title">Laugh Out Loud</div>
+        <div>Comedy</div>
+      </div>
+    </article>
+    <article class="movie-card-small" tabindex="0" aria-label="Movie Thrill Seeker">
+      <img src="https://m.media-amazon.com/images/I/81WH6VT6U6L._AC_SL1500_.jpg" alt="Thrill Seeker movie poster" />
+      <div class="info">
+        <div class="title">Thrill Seeker</div>
+        <div>Thriller</div>
+      </div>
+    </article>
+    <article class="movie-card-small" tabindex="0" aria-label="Movie Action Reloaded">
+      <img src="https://m.media-amazon.com/images/I/81iy2+7fOoL._AC_SL1500_.jpg" alt="Action Reloaded movie poster" />
+      <div class="info">
+        <div class="title">Action Reloaded</div>
+        <div>Action</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" aria-label="What our subscribers say">
+  <h2>Subscriber Testimonials</h2>
+  <div class="testimonial-cards" role="list">
+    <article class="testimonial-card" role="listitem" tabindex="0">
+      <p>"Nighters gave me access to movies I can't find anywhere else. The subscription is worth every penny!"</p>
+      <div class="author">- Bonny Bizimana</div>
+    </article>
+    <article class="testimonial-card" role="listitem" tabindex="0">
+      <p>"Great value and exclusive content. The customer support is excellent too!"</p>
+      <div class="author">- Zipora Musimenta</div>
+    </article>
+    <article class="testimonial-card" role="listitem" tabindex="0">
+      <p>"Easy payment options and smooth subscription process. Highly recommend for movie lovers."</p>
+      <div class="author">- Alex Kato</div>
+    </article>
+  </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section class="faq" aria-label="Frequently Asked Questions about subscription">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="accordion-item">
+    <button class="accordion-header" aria-expanded="false" aria-controls="faq1-content" id="faq1">
+      How do I subscribe to Nighters Movie Groups?
+    </button>
+    <div id="faq1-content" class="accordion-panel" role="region" aria-labelledby="faq1">
+      <p>Choose a plan above and contact us via the form or payment methods to join the groups instantly.</p>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header" aria-expanded="false" aria-controls="faq2-content" id="faq2">
+      What platforms can I access the movies on?
+    </button>
+    <div id="faq2-content" class="accordion-panel" role="region" aria-labelledby="faq2">
+      <p>You can access the exclusive movie groups on WhatsApp or Telegram after subscription confirmation.</p>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header" aria-expanded="false" aria-controls="faq3-content" id="faq3">
+      Which payment methods do you support?
+    </button>
+    <div id="faq3-content" class="accordion-panel" role="region" aria-labelledby="faq3">
+      <p>We support Airtel and MTN mobile money payments as listed above.</p>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header" aria-expanded="false" aria-controls="faq4-content" id="faq4">
+      Can I upgrade or downgrade my subscription plan?
+    </button>
+    <div id="faq4-content" class="accordion-panel" role="region" aria-labelledby="faq4">
+      <p>Yes, please contact us to adjust your subscription according to your preference.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Promotions -->
+<section class="promotions" aria-label="Current promotions for subscription groups">
+  <h2>Current Promotions</h2>
+  <div class="promotion-items">
+    <div class="promotion-item">🎁 10% off on yearly Premium Plan for new subscribers</div>
+    <div class="promotion-item">🔖 Refer a friend and get 1 month free on any plan</div>
+    <div class="promotion-item">🎬 Exclusive early bird access to new movies for Premium Plan</div>
+  </div>
+</section>
+
+<!-- Community -->
+<section class="community" aria-label="Community Engagement Opportunities">
+  <h2>Join Our Movie Lovers Community</h2>
+  <p>Connect with fellow movie enthusiasts in our exclusive groups to discuss latest releases, share recommendations, and enjoy fun movie trivia quizzes.</p>
+  <p>Participate in watch parties and giveaways hosted exclusively for subscribers.</p>
+</section>
+
+<footer>
+  <h3>Stay Connected</h3>
+  <p>Follow us on social media for the latest movie updates!</p>
+  <p>
+    <a href="#" aria-label="Visit TikTok">TikTok</a> | 
+    <a href="#" aria-label="Visit Twitter">Twitter</a> | 
+    <a href="#" aria-label="Visit Instagram">Instagram</a>
+  </p>
+  <p>&copy; 2025 Nighters. All rights reserved.</p>
+</footer>
+
+<script>
+  // Accordion FAQ toggle
+  const accHeaders = document.querySelectorAll('.accordion-header');
+  accHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const expanded = header.getAttribute('aria-expanded') === 'true';
+      // Close all
+      accHeaders.forEach(h => {
+        h.setAttribute('aria-expanded', 'false');
+        document.getElementById(h.getAttribute('aria-controls')).classList.remove('expanded');
+      });
+      // Toggle clicked
+      if (!expanded) {
+        header.setAttribute('aria-expanded', 'true');
+        document.getElementById(header.getAttribute('aria-controls')).classList.add('expanded');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
+
